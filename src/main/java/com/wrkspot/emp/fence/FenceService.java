@@ -6,6 +6,7 @@ import com.wrkspot.emp.fence.model.dto.LocateMe;
 import com.wrkspot.emp.fence.mongoutil.MongoUtil;
 import com.wrkspot.emp.fence.service.impl.HouseKeepingServiceImpl;
 import com.wrkspot.emp.fence.service.impl.LocationServiceImpl;
+import org.bson.types.ObjectId;
 import org.joda.time.DateTime;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
@@ -79,12 +80,7 @@ public class FenceService implements Serializable {
         EmployeeCheckins currrentFence = null;
         try {
             fenceId = fenceId.trim();
-            Query<EmployeeCheckins> userQueryDS = mongoUtil.getMongoDatastore().createQuery(EmployeeCheckins.class);
-            userQueryDS.field("_id").equal(fenceId);
-            currrentFence = userQueryDS.get();
-
-            //currrentFence = mongoTemplate.findById(fenceId,EmployeeCheckins.class,"checkins");
-
+            currrentFence = mongoUtil.getMongoDatastore().get(EmployeeCheckins.class,new ObjectId(fenceId));
             if (currrentFence != null) {
                 LOGGER.info("Check In data time---->" + currrentFence.getLogTime() + " Emp Id --> "
                         + currrentFence.getEmployeeID() + " Site Id --> " + currrentFence.getSiteID());

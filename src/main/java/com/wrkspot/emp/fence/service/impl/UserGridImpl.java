@@ -6,6 +6,7 @@ import com.wrkspot.emp.fence.model.EmployeeCheckins;
 import com.wrkspot.emp.fence.model.IOTData;
 import com.wrkspot.emp.fence.model.dto.BeaconMetaData;
 import com.wrkspot.emp.fence.model.dto.LocateMe;
+import com.wrkspot.emp.fence.util.FenceGlossaries;
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -107,7 +108,7 @@ public class UserGridImpl implements Serializable{
 
         for (IOTData b : visibleBeacons) {
             List<IOTData> beaconsToRank = rankingMap.get(b.getUuid());
-            if (beaconsToRank.isEmpty()) {
+            if (FenceGlossaries.isObjectEmpty(beaconsToRank)) {
                 beaconsToRank = new ArrayList<IOTData>();
                 beaconsToRank.add(b);
                 rankingMap.put(b.getUuid(), beaconsToRank);
@@ -146,17 +147,6 @@ public class UserGridImpl implements Serializable{
 
         algMaps.put("BEACONS", rankingContext);
         algMaps.put("AXISINFO", axisInfo);
-
-
-        // Commented by Murali
-        //  Map<String, Map<String, List<BeaconMetaData>>> axisMap = this.rankingService.buildAxes(rankingContext);
-
-        //List<LocateMeAxis> locateMeAxes = this.rankingService.processAxes(axisMap, rankingContext);
-
-        // Introduce Algorithms here
-        // The Final Judgement will be based on the different algorithms
-        // This is Algorithm 2
-        //this.rankingService.makeFinalJudgement(locateMeAxes, visibleBeacons);
 
 
         log.debug("Exiting from receiveGeoFenceData method");

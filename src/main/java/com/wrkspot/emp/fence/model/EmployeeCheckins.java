@@ -1,17 +1,18 @@
 package com.wrkspot.emp.fence.model;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
 import org.mongodb.morphia.annotations.Id;
 
 import java.util.Date;
 import java.util.List;
 
-@Entity
+@Entity(value = "checkins")
 public class EmployeeCheckins {
 
 
     @Id
-    String _id;
+    ObjectId _id;
     String employeeID;
     Date logTime;
     String siteID;
@@ -21,11 +22,11 @@ public class EmployeeCheckins {
     //List<Log> log;
     List<Beacon> beacons;
 
-    public String get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 
