@@ -1,21 +1,24 @@
 package com.wrkspot.emp.fence.model.graph;
 
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.annotations.Entity;
+import org.mongodb.morphia.annotations.Id;
 
 @Entity
 public class EmployeeInfo {
-    private String _id;
+    @Id
+    private ObjectId _id;
     private String first_name;
     private String last_name;
     private String siteID;
     private String schedule;
     private String department;
 
-    public String get_id() {
+    public ObjectId get_id() {
         return _id;
     }
 
-    public void set_id(String _id) {
+    public void set_id(ObjectId _id) {
         this._id = _id;
     }
 

@@ -8,6 +8,7 @@ import com.wrkspot.emp.fence.model.userLocation.UserOccupancy;
 import com.wrkspot.emp.fence.model.userLocation.UserProperty;
 import com.wrkspot.emp.fence.mongoutil.MongoUtil;
 import com.wrkspot.emp.fence.util.FenceGlossaries;
+import org.bson.types.ObjectId;
 import org.mongodb.morphia.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,9 +97,7 @@ public class UserOccupancyService  implements Serializable {
 
     public UserEmployee getEmployeeInfo(RealTimeLocation realTimeLocation) throws Exception {
 
-        Query<EmployeeInfo> userQueryDS = mongoUtil.getMongoDatastore().createQuery(EmployeeInfo.class);
-        userQueryDS.field("_id").equal(realTimeLocation.getEmployeeId());
-        EmployeeInfo employeeInfo = userQueryDS.get();
+        EmployeeInfo employeeInfo = mongoUtil.getMongoDatastore().get(EmployeeInfo.class,new ObjectId(realTimeLocation.getEmployeeId()));
 
         Query<UserEmployee> datastoreQuery = mongoUtil.getMongoDatastore().createQuery(UserEmployee.class);
         datastoreQuery.field("siteID").equal(realTimeLocation.getSiteID())
