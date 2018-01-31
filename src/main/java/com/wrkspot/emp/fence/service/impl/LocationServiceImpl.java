@@ -25,11 +25,11 @@ public class LocationServiceImpl implements Serializable{
         return SingletonHelper.INSTANCE;
     }
 
-    private static final Logger log = LoggerFactory.getLogger(LocationServiceImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LocationServiceImpl.class);
 
 
     public String locateMe(LocateMe userCheckin) throws Exception {
-        log.debug("Entered into locateMe method:");
+        LOGGER.debug("Entered into locateMe method:");
         LocateMe locateUser = userCheckin;
         List<Beacon> visibleBeacons = null;
         String userLocation = "Unable to locate, try again!";
@@ -126,11 +126,11 @@ public class LocationServiceImpl implements Serializable{
 
             } else {
 
-                log.debug("Exiting from locateMe method");
+                LOGGER.debug("Exiting from locateMe method");
                 return null;
             }
         } catch (Exception e) {
-            log.error("Exiting from locateMe method");
+            LOGGER.error("Exiting from locateMe method");
         }
         return null;
 
@@ -167,11 +167,13 @@ public class LocationServiceImpl implements Serializable{
                     distanceValues[i] = bb.getDistance();
                     i++;
                 }
+                Arrays.sort(rssiValues);
+                Arrays.sort(distanceValues);
                 DescriptiveStatistics stats = new DescriptiveStatistics(rssiValues);
                 Integer median = (int) stats.getPercentile(50);
                 DescriptiveStatistics distanceStats = new DescriptiveStatistics(distanceValues);
                 Double dist = distanceStats.getPercentile(50);
-                System.out.println("-- Median for " + UUID + "  =  " + median + " -- beacon name is = " + beaconName
+                LOGGER.info("-- Median for " + UUID + "  =  " + median + " -- beacon name is = " + beaconName
                         + " -- No of occurance" + b.size() + "--  Distance Median" + dist);
                 usrLocBsdCurBecn.setMedian(median);
                 usrLocBsdCurBecn.setUuid(UUID);
@@ -194,8 +196,8 @@ public class LocationServiceImpl implements Serializable{
 
             }
         } catch (Exception e) {
-            log.error("Exception while calculating median for --" + UUID);
-            log.error("Exception  --" + e);
+            LOGGER.error("Exception while calculating median for --" + UUID);
+            LOGGER.error("Exception  --" + e);
 
         }
         return null;

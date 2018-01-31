@@ -75,7 +75,12 @@
             <version>2.9.9</version>
         </dependency>
 
-
+        <!--for JSAT-->
+        <dependency>
+            <groupId>com.edwardraff</groupId>
+            <artifactId>JSAT</artifactId>
+            <version>0.0.9</version>
+        </dependency>
 
         <!-- Logging -->
         <dependency>

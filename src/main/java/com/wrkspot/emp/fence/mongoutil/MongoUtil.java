@@ -2,6 +2,7 @@ package com.wrkspot.emp.fence.mongoutil;
 
 import com.mongodb.MongoClient;
 import com.wrkspot.emp.fence.util.FenceGlossaries;
+import org.apache.log4j.BasicConfigurator;
 import org.mongodb.morphia.Datastore;
 import org.mongodb.morphia.Morphia;
 
@@ -10,6 +11,7 @@ import java.io.Serializable;
 public class MongoUtil implements Serializable{
     private static Datastore datastore;
     private MongoUtil() {
+        BasicConfigurator.configure();
         MongoClient client = new MongoClient(FenceGlossaries.getProperties().getProperty("mongo.host"), Integer.parseInt(FenceGlossaries.getProperties().getProperty("mongo.port")));
         datastore = new Morphia().createDatastore(client, FenceGlossaries.getProperties().getProperty("mongo.db.name"));
     }

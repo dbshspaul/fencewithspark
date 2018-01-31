@@ -5,6 +5,8 @@ import com.wrkspot.emp.fence.locateMeAlgorithms.algorithm7.IOTDataHandlerAlg7;
 import com.wrkspot.emp.fence.locateMeAlgorithms.algorithm8.IOTDataHandlerAlg8;
 import com.wrkspot.emp.fence.util.FenceGlossaries;
 import kafka.serializer.StringDecoder;
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Level;
 import org.apache.spark.SparkConf;
 import org.apache.spark.streaming.Duration;
 import org.apache.spark.streaming.api.java.JavaPairInputDStream;
@@ -27,7 +29,9 @@ public class SparkStreamJobProcessor implements Serializable{
     private FenceService fenceService = FenceService.getInstance();
 
     public void receive(){
-        org.apache.log4j.BasicConfigurator.configure();
+        BasicConfigurator.configure();
+//        org.apache.log4j.Logger.getLogger("org").setLevel(Level.ERROR);
+//        org.apache.log4j.Logger.getLogger("akka").setLevel(Level.ERROR);
         System.setProperty("hadoop.home.dir", "D:/hadoop-3.0.0/hadoop-3.0.0");
         SparkConf conf = new SparkConf()
                 .setAppName("spark-streaming")
